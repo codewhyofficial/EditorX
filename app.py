@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 from docx import Document
@@ -61,23 +62,35 @@ def get_document(filename):
 
         # Handle paragraphs
         for paragraph in doc.paragraphs:
-            para_data = {
-                'type': 'paragraph',
-                'runs': []
-            }
-            for run in paragraph.runs:
-                run_data = {
-                    'text': run.text,
-                    'bold': run.bold,
-                    'italic': run.italic,
-                    'underline': run.underline,
+            if paragraph.style.name.startswith('Heading'):
+                title_data = {
+                    'type': 'title',
+                    'level': paragraph.style.name,
+                    'text': paragraph.text,
                     'font': {
-                        'name': run.font.name,
-                        'size': run.font.size.pt if run.font.size else None
+                        'name': paragraph.runs[0].font.name if paragraph.runs else None,
+                        'size': paragraph.runs[0].font.size.pt if paragraph.runs and paragraph.runs[0].font.size else None
                     }
                 }
-                para_data['runs'].append(run_data)
-            content.append(para_data)
+                content.append(title_data)
+            else:
+                para_data = {
+                    'type': 'paragraph',
+                    'runs': []
+                }
+                for run in paragraph.runs:
+                    run_data = {
+                        'text': run.text,
+                        'bold': run.bold,
+                        'italic': run.italic,
+                        'underline': run.underline,
+                        'font': {
+                            'name': run.font.name,
+                            'size': run.font.size.pt if run.font.size else None
+                        }
+                    }
+                    para_data['runs'].append(run_data)
+                content.append(para_data)
 
         # Handle tables
         for table in doc.tables:
