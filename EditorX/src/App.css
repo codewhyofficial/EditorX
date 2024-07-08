@@ -1,0 +1,34 @@
+/* App.css */
+.a4-container {
+  width: 210mm; /* A4 width */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  height: 297mm; /* A4 height */
+  max-height: 100vh; /* Maximum height of viewport */
+  margin: auto;
+  padding: 20mm; /* Adjust padding as needed */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: white;
+  overflow: auto;
+}
+
+.a4-container textarea {
+  width: 100%; /* Full width of container */
+  height: 100%; /* Full height of container */
+  box-sizing: border-box; /* Include padding and border in width and height */
+  resize: none; /* Prevent resizing */
+  border: none; /* Remove default border */
+  outline: none; /* Remove outline */
+  font-size: 16px; /* Adjust font size as needed */
+  line-height: 1.5; /* Adjust line height as needed */
+  padding: 10px; /* Adjust padding as needed */
+}
+/* Add CSS to remove outline */
+[contenteditable]:focus {
+  outline: none;
+}
+
+/* Add CSS to handle right-to-left text issue */
+div[contenteditable], span[contenteditable] {
+  direction: ltr;
+}
+
