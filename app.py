@@ -67,6 +67,9 @@ def get_document(filename):
                     'type': 'title',
                     'level': paragraph.style.name,
                     'text': paragraph.text,
+                    'bold': paragraph.runs[0].bold if paragraph.runs else None,
+                    'italic': paragraph.runs[0].italic if paragraph.runs else None,
+                    'underline': paragraph.runs[0].underline if paragraph.runs else None,
                     'font': {
                         'name': paragraph.runs[0].font.name if paragraph.runs else None,
                         'size': paragraph.runs[0].font.size.pt if paragraph.runs and paragraph.runs[0].font.size else None
