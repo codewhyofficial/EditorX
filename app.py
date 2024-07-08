@@ -60,7 +60,7 @@ def get_document(filename):
         doc = Document(doc_path)
         content = []
 
-        # Handle paragraphs
+        # Handle titles and paragraphs
         for paragraph in doc.paragraphs:
             if paragraph.style.name.startswith('Heading'):
                 title_data = {
